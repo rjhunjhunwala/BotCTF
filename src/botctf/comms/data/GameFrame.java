@@ -20,7 +20,8 @@ public class GameFrame {
 		sb.append(Arena.getAmmo()[player.team]); sb.append("\n");
 		sb.append(Arena.getAliveBots()); sb.append("\n");
 		sb.append(player.getX()); sb.append(","); sb.append(player.getY()); sb.append("\n");
-		appendLocalMap(sb); sb.append("\n");
+		appendLocalMap(sb);
+		sb.append("EMARF"); sb.append("\n");
 		sb.setLength(sb.length()-1); // sending message already appends new line character
 	}
 	

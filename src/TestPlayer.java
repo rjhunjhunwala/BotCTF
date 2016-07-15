@@ -10,8 +10,13 @@ public class TestPlayer {
 		
 		while(true)
 		{
-			String line=readLine(System.in);
-			System.err.println(line);
+			String line;
+			do
+			{
+				line =readLine(System.in);
+				System.err.println(line);
+			} while (!"EMARF".equals(line));
+			
 			System.out.println("Move,2");
 		}
 	}
