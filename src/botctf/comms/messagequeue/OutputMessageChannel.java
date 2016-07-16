@@ -22,6 +22,7 @@ public class OutputMessageChannel
 			{
 				os.write(message.getBytes());
 				os.write('\n');
+				os.flush();
 			}
 			catch (IOException e)
 			{

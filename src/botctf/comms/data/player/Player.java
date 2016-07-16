@@ -1,13 +1,16 @@
 package botctf.comms.data.player;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import botctf.Bot;
 import botctf.Move;
@@ -16,12 +19,13 @@ import botctf.comms.data.GameFrame;
 import botctf.comms.data.IntialiseFrame;
 import botctf.comms.messagequeue.PlayerCommunication;
 import botctf.comms.messagequeue.Result;
+import botctf.comms.utils.InputStreamConsumer;
 import botctf.comms.utils.StandardStreamManager;
 
 public class Player extends Bot 
 {
 
-	public static boolean RUN_IN_SAME_VM = true;
+	public static boolean RUN_IN_SAME_VM = false;
 	private static int port=14000;
 
 	public int id;
@@ -51,16 +55,64 @@ public class Player extends Bot
 		if (!(RUN_IN_SAME_VM && command.get(0).equals("java")) )
 	   	{
 			ProcessBuilder pb = new ProcessBuilder(command);
+			Map<String, String> env = pb.environment();
+			
+			String pathKey = "ClassPath";
+			
+			if (!env.keySet().contains(pathKey))
+			{
+				pathKey = "CLASSPATH";
+			}
+			
+			String oldPath = env.get(pathKey);
+			if (oldPath == null)
+			{
+				oldPath=".";
+			}
+
+			// add current working dir
+			String newPath = oldPath+File.pathSeparator+Paths.get(".").toAbsolutePath().normalize().toString();
+			
+			// add current working dir\bin (for running from within eclipse)
+			newPath += File.pathSeparator+Paths.get(".").toAbsolutePath().normalize().toString()+File.separator+"bin";
+			env.put(pathKey, newPath);
+			
 			Process proc = null;
 			try {
 				proc = pb.start();
+				
+				final Process procFinal = proc;
+				Runtime.getRuntime().addShutdownHook(new Thread() {
+				    public void run() {
+				        if (procFinal!=null)
+				        {
+				        	procFinal.destroy();
+				        }
+				    }
+				});
+				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			stdin = proc.getInputStream();
 			stderr = proc.getErrorStream();
 			stdout = proc.getOutputStream();
+			
+			// output any error stream messages from the process to the console
+			new InputStreamConsumer(stderr, new InputStreamConsumer.InputReceivedCallback()
+			{
+				
+				@Override
+				public void inputReceieved(int input)
+				{
+					if (input>=0)
+					{
+						System.err.print((char) input);
+					}
+				}
+			});
+			
 			communications= new PlayerCommunication(stdin, stdout,this);
 	   	}
 	   	else
@@ -111,7 +163,6 @@ public class Player extends Bot
 	   			{
 		   			Socket socket = new Socket("127.0.0.1", thisPort);
 		   			communications= new PlayerCommunication(socket.getInputStream(), socket.getOutputStream(), Player.this);
-		   			sendInit();
 		   			break;
 	   			} catch (IOException e)
 	   			{
@@ -124,6 +175,9 @@ public class Player extends Bot
 	   			}
 	   		}
 		}
+		
+		sendInit();
+		
 	}
 
 	public Player(String string, int x, int y, int team, String name) {
@@ -141,8 +195,16 @@ public class Player extends Bot
 	public Move move() {
 		
 		GameFrame frame = new GameFrame(this);
-		communications.sendFrame(frame);
-		communications.processNextMessage();
+		try
+		{
+			moveResult = null;
+			communications.sendFrame(frame);
+			communications.processNextMessage();
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 
 		if (moveResult == null)
 		{

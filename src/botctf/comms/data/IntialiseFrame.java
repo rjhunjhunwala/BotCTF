@@ -16,7 +16,7 @@ public class IntialiseFrame {
 	public void toMessage(StringBuilder sb)
 	{
 		sb.append("INIT"); sb.append("\n");
-		sb.append(player.team); sb.append("\n");
+		sb.append((char) player.team); sb.append("\n");
 		appendMap(sb);
 		sb.append("TINI"); sb.append("\n");
 		sb.setLength(sb.length()-1); // sending message already appends new line character
