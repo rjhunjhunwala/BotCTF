@@ -63,15 +63,10 @@ public class Arena implements Runnable {
 
 	static {
 		bots[0] = new Player("java TestPlayer",2, 2, Bot.blueTeam);
-		bots[1] = new Player("java AllForOneBot",3, 3, Bot.blueTeam);
-		bots[2] = new Player("java AllForOneBot",4, 4, Bot.blueTeam);
-		bots[3] = new Player("java AllForOneBot",5, 5, Bot.blueTeam);
-		bots[4] = new Player("java AllForOneBot",6, 6, Bot.blueTeam);
-//		bots[0] = new Player("java TestPlayer",2, 2, Bot.blueTeam);
-//		bots[1] = new PathFinder(3, 3, Bot.blueTeam);
-//		bots[2] = new PathFinder(4, 4, Bot.blueTeam);
-//		bots[3] = new PathFinder(5, 5, Bot.blueTeam);
-//		bots[4] = new PathFinder(6, 6, Bot.blueTeam);
+		bots[1] = new PathFinder(3, 3, Bot.blueTeam);
+		bots[2] = new PathFinder(4, 4, Bot.blueTeam);
+		bots[3] = new PathFinder(5, 5, Bot.blueTeam);
+		bots[4] = new PathFinder(6, 6, Bot.blueTeam);
 		bots[5] = new PathFinder(62, 62, Bot.redTeam);
 		bots[6] = new PathFinder(61, 61, Bot.redTeam);
 		bots[7] = new PathFinder(60, 60, Bot.redTeam);
