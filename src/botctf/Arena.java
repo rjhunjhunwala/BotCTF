@@ -11,7 +11,7 @@
  * 0 (right) 1(down) And an action. Each move you can either 1. MoveType.Move
  * one square in the direction selected 2. MoveType.Defuse the mine sitting in
  * the square in the choosen direcion 3. MoveType.Throw a bomb in the direction
- * which goes 10 blocks and kills the first enemy it sees (costs one shared team
+ * which goes 4 blocks and kills the first enemy it sees (costs one shared team
  * ammo) 4. MoveType.Mine places a mine on the square in the chosen direction.
  * Any player stepping on this mine dies (costs one shared team ammo)!
  * 
