@@ -205,8 +205,21 @@ if(Arena.getAliveBots()==1){
 
 //		targetX=1;
 //		targetY=1;
+		if(team ==redTeam){
+			if(x>61&&y>61){
+				targetX=58;
+			 targetY=58;
+			}
+		}
+		if(team==blueTeam){
+						if(x<3&&y<3){
+				targetX=4;
+			 targetY=4;
+			}
+		}
 int topMineLoc=2;
 int botMineLoc=62;
+//todo fix bug of stepping on own mines
 		int[][] navMap = floodFillMap(targetX, targetY);
 		int bestOption = 4;
 		int shortestDist = Integer.MAX_VALUE;

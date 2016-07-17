@@ -11,8 +11,10 @@
  * 0 (right) 1(down) And an action. Each move you can either 1. MoveType.Move
  * one square in the direction selected 2. MoveType.Defuse the mine sitting in
  * the square in the choosen direcion 3. MoveType.Throw a bomb in the direction
- * which goes 4 blocks and kills the first enemy it sees (costs one shared team
- * ammo) 4. MoveType.Mine places a mine on the square in the chosen direction.
+ * which goes up to 4 blocks and hits all enemies it sees. But it has a 60% chance of disapearing each block
+	* So it will make 1 block 100% of the time. Will hit at two blocks 60% at 3 36 and at 4 21.6
+	* (costs one shared team ammo) 
+	* 4. MoveType.Mine places a mine on the square in the chosen direction.
  * Any player stepping on this mine dies (costs one shared team ammo)!
  * 
 * Dying results in your bot no longer being able to play.
@@ -36,8 +38,6 @@
 package botctf;
 
 import botctf.Bot.Coord;
-import botctf.comms.data.player.Player;
-
 import javax.swing.JOptionPane;
 
 /**
@@ -62,7 +62,7 @@ public class Arena implements Runnable {
 	}
 
 	static {
-		bots[0] = new Player("java TestPlayer",2, 2, Bot.blueTeam);
+		bots[0] = new PathFinder(2, 2, Bot.blueTeam);
 		bots[1] = new PathFinder(3, 3, Bot.blueTeam);
 		bots[2] = new PathFinder(4, 4, Bot.blueTeam);
 		bots[3] = new PathFinder(5, 5, Bot.blueTeam);
@@ -151,6 +151,7 @@ public class Arena implements Runnable {
 							case Throw:
 								if (ammo[bots[firstBot].team] > 0) {
 									ammo[bots[firstBot].team]--;
+									throwLoop:
 									for (int j = 1; j < 5; j++) {
 										if (Bot.inBounds(x + dX * j, y + dY * j)) {
 											if (bots[firstBot].team == Bot.blueTeam) {
@@ -173,6 +174,9 @@ public class Arena implements Runnable {
 													}
 												}
 											}
+										}
+										if(Math.random()>.6){
+											break throwLoop;
 										}
 									}
 								}
