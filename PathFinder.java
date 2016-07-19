@@ -58,8 +58,8 @@ public class PathFinder extends Bot {
 
 		return navigationMap.clone();
 	}
-	boolean upMine = false;
-	boolean sideMine = false;
+	static boolean upMine = false;
+	static boolean sideMine = false;
 
 	public void markOpen(int floodX, int floodY, int num) {
 if(inBounds(floodX,floodY))
