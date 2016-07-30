@@ -7,17 +7,18 @@ public class TestPlayer {
 	public static void main(String[] args) throws Exception
 	{
 		System.err.println("TEST PLAYER STARTED");
-		
+		int frame=0;
 		while(true)
 		{
 			String line;
 			do
 			{
 				line =readLine(System.in);
-				System.err.println(line);
+				//System.err.println(line);
 			} while (!"EMARF".equals(line));
 			
 			System.out.println("Move,2");
+			System.err.println("FRAME: "+frame++);
 		}
 	}
 	

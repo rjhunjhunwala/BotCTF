@@ -1,7 +1,6 @@
 package botctf.comms.data;
 
 import botctf.Arena;
-import botctf.Bot;
 import botctf.comms.data.player.Player;
 
 public class GameFrame {
@@ -14,6 +13,8 @@ public class GameFrame {
 
 	public void toMessage(StringBuilder sb) {
 		sb.append("FRAME");
+		sb.append("\n");
+		sb.append(player.frame);
 		sb.append("\n");
 		sb.append(Arena.getAmmo()[player.team]);
 		sb.append("\n");

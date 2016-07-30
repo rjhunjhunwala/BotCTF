@@ -257,4 +257,8 @@ if(moveCounter%2==0){
 //System.out.println(bestOption);
 		return new Move(bestOption, m);
 	}
+	
+	@Override
+	public void setFrame(int frame ){
+	}
 }

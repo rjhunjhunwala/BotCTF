@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 
 		public GameFrame() {
 			super("Maze Game");
-			this.add(new GamePanel());
+			this.add(Arena.gamePanel = new GamePanel());
 			this.pack();
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setVisible(true);

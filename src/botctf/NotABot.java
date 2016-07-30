@@ -39,4 +39,8 @@ public class NotABot extends Bot {
 	}
 	return new Move(dir,t);
 	}
+	
+	@Override
+	public void setFrame(int frame ){
+	}
 }

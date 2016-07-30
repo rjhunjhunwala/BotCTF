@@ -203,7 +203,7 @@ if(moveCounter%2==0){
 			PathSegment parent; 
 		}
 	    // A*
-	    if (startX==targetX && startY==targetY)
+	    if (startX==targetX && startY==targetY || targetX<0 || targetX>=map.length || targetY<0 || targetY>=map.length)
 	    {
 	    	return 4;
 	    }
@@ -286,4 +286,8 @@ if(moveCounter%2==0){
 	    }
 	    throw new RuntimeException("Path finding failed");
 	 }
+	
+	@Override
+	public void setFrame(int frame ){
+	}
 }

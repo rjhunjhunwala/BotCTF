@@ -27,7 +27,7 @@ public class Player extends Bot
 
 	public static boolean RUN_IN_SAME_VM = false;
 	private static int port=14000;
-
+public int frame=0;
 	public int id;
 	public double money;
 	public double incomeRate;
@@ -193,7 +193,6 @@ public class Player extends Bot
 
 	@Override
 	public Move move() {
-		
 		GameFrame frame = new GameFrame(this);
 		try
 		{
@@ -234,5 +233,10 @@ public class Player extends Bot
 		moveResult = move;
 		
 		return result;
+	}
+	
+	public void setFrame(int frame)
+	{
+		this.frame = frame;
 	}
 }

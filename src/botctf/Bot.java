@@ -158,6 +158,8 @@ public abstract class Bot {
 		y = inY;
 		team = inTeam;
 	}
+	
+	public abstract void setFrame(int frame);
 
 	public abstract Move move();
 

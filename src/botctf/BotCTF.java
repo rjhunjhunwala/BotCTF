@@ -15,14 +15,17 @@ public class BotCTF {
 
 	/**
 	 * @param args the command line arguments
+	 * @throws InterruptedException 
 	 */
-	public static void main(String[] args) {
-Bot.playOneGame();
-GameFrame g = new GameFrame();
+	public static void main(String[] args) throws InterruptedException {
+		GameFrame g = new GameFrame();
+//		Thread.sleep(1000);
+//Bot.playOneGame();
+
  
-for(;;){
-	g.repaint();
-}
+//for(;;){
+//	g.repaint();
+//}
 	}
 	
 }

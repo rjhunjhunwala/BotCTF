@@ -20,4 +20,8 @@ public class NopBot extends Bot {
 	public Move move(){
 		return new Move(5,Defuse);
 	}
+	
+	@Override
+	public void setFrame(int frame ){
+	}
 }
